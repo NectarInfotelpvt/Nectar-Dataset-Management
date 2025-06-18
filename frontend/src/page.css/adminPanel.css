@@ -1,0 +1,175 @@
+/* adminPanel.css */
+
+html, body, #root, .admin-panel-layout {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-panel-layout {
+    position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* --- FIXED HEADER STYLES --- */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to right, #7c3aed, #3b82f6, #ec4899);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding-bottom: 20px;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+/* Ensure the card inside the FIXED HEADER section doesn't have conflicting top border-radius */
+.fixed-header .card {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+/* --- FIXED FOOTER STYLES --- */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* Remove the white "patti" by matching the background of the main content */
+    background-color: transparent; /* This makes the footer background transparent */
+    box-shadow: none; /* Remove shadow to eliminate the "patti" effect */
+}
+
+.fixed-footer p {
+    color: #7c3aed; /* Set a suitable color for the text if the background is transparent */
+}
+
+
+.main-content-wrapper {
+    position: relative;
+    z-index: 1;
+    margin-top: 300px; /* Increased margin-top to account for the heading and better clearance */
+    margin-bottom: 60px; /* Exact height of .fixed-footer */
+}
+
+/* --- EXISTING GENERAL STYLES (kept as is) --- */
+
+/* General styles for the form/resource cards */
+.admin-card-section {
+    border-radius: 8%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Hover effect for the admin cards */
+.admin-card-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #EAD6FF; /* Using themeColors.lightPurple */
+}
+
+/* Style for the headings inside these cards */
+.admin-card-section h2 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* General body styles - kept minimal as layout is handled by flexbox */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Form control styles */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    padding: 0.75rem 1rem;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Table header styles */
+.table-custom-header th {
+   background: linear-gradient(to right, #7c3aed, #3b82f6, #ec4899);
+    color: white;
+    font-weight: bold;
+}
+
+/* Striped table rows */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.03); /* Very light gray for odd rows */
+}
+
+/* PERMANENT SOLUTION FOR TABLE ROW HOVER COLOR */
+.table-hover tbody tr:hover {
+    background-color: #e0e0e0 !important; /* A slightly darker light gray */
+}
+
+/* Style for the main content area (forms, tables) to create the curved top */
+.curved-panel-container {
+    background-color: white; /* The white background for this entire section */
+    border-top-left-radius: 60px; /* Adjust this value for the desired curve */
+    border-top-right-radius: 60px; /* Keep consistent with top-left */
+    margin-top: -60px; /* Pulls this white section upwards to overlap the gradient above it */
+    position: relative; /* Ensures z-index works, and local positioning */
+    z-index: 2; /* Make sure this white section is above the parts of the fixed header it overlaps */
+    padding-top: 80px; /* Add extra padding inside to prevent content from hiding under the curve */
+    padding-bottom: 40px; /* Add some padding at the bottom for content above footer */
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); /* Optional: subtle shadow for depth */
+}
+
+/* Added: Border radius for the table cards and headers */
+.table-card {
+    border-radius: 1rem; /* Apply consistent rounding to the table cards */
+    overflow: hidden; /* Important: Hides the table content that would otherwise extend beyond the rounded corners */
+}
+
+/* Also ensure table cells align with the rounded corners */
+.table-card .card-header {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.table-card table {
+    border-collapse: separate; /* Required for border-radius on table elements */
+    border-spacing: 0; /* Ensures no gaps between cells */
+}
+
+.table-card table thead th:first-child {
+    border-top-left-radius: 1rem;
+}
+
+.table-card table thead th:last-child {
+    border-top-right-radius: 1rem;
+}
+
+/* For the last row of the table, if you want bottom rounding */
+.table-card table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 1rem;
+}
+
+.table-card table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 1rem;
+}
