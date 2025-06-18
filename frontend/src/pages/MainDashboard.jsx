@@ -50,7 +50,7 @@ export default function MainDashboard() {
   const fetchRoles = useCallback(async () => {
     try {
       setErrorRoles(false);
-      const res = await fetch("http://localhost:5001/api/submission/roles");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/submission/roles`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -71,7 +71,7 @@ export default function MainDashboard() {
   const fetchResources = useCallback(async () => {
     try {
       setErrorResources(false);
-      const res = await fetch("http://localhost:5001/api/resources");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/resources`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }

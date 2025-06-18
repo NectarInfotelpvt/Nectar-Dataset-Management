@@ -46,7 +46,7 @@ export default function AdminPanel() {
 
   const fetchRoles = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/submission/roles");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/submission/roles`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -72,7 +72,7 @@ export default function AdminPanel() {
   }, [fetchRoles]);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/resources")
+   fetch(`${import.meta.env.VITE_API_URL}/api/resources`)
       .then((res) => res.json())
       .then((data) => {
         setResourcesData(data);
@@ -112,7 +112,7 @@ export default function AdminPanel() {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/api/submission/add", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/submission/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ employeeName, roleName, datasetLink, usersList }),
@@ -200,7 +200,7 @@ export default function AdminPanel() {
       };
 
       try {
-        const res = await fetch("http://localhost:5001/api/resources/add", {
+       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/resources/add`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -218,7 +218,7 @@ export default function AdminPanel() {
             extra: {},
           });
           setExtraFields([]);
-          fetch("http://localhost:5001/api/resources")
+         fetch(`${import.meta.env.VITE_API_URL}/api/resources`)
             .then((res) => res.json())
             .then((data) => {
               setResourcesData(data);

@@ -60,8 +60,7 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const API = "http://localhost:5001/api";
-
+    const API = `${import.meta.env.VITE_API_URL}/api`;
     try {
       if (isLogin) {
         localStorage.setItem("erpId", loginId);
