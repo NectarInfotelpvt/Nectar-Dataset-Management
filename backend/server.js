@@ -8,7 +8,8 @@ const app = express();
 
 // ✅ Apply CORS FIRST — before routes
 app.use(cors({
-  origin: "http://localhost:5173",
+  // Add the new origin to the allowed list
+  origin: ["http://localhost:5173", "https://nectar-dataset-management-live.onrender.com"],
   credentials: true,
 }));
 
