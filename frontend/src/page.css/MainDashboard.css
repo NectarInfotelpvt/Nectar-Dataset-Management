@@ -1,0 +1,744 @@
+/* /Users/churamanisahu/Downloads/Nectar DataSet Management software/frontend/src/page.css/MainDashboard.css */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* --- Define Monochromatic Blue Colors for Easy Theming --- */
+:root {
+    /* Light Mode - Monochromatic Blue Palette */
+    --light-bg: #e3f2fd; /* Very light blue for overall background */
+    --light-text: #1a237e; /* Deep blue for primary text */
+    --light-gray-text: #5c6bc0; /* Muted blue for secondary text */
+    --light-primary-gradient: linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #2196f3 100%); /* Strong blue gradient for header */
+    --light-card-bg: #ffffff; /* White for card backgrounds to make them pop against light blue bg */
+    --light-card-border: #90caf9; /* Light blue border for cards */
+    --light-card-hover-bg: #e3f2fd; /* Very light blue for card hover */
+
+    /* Buttons & Links */
+    --light-button-primary: #1976d2; /* Primary blue for main buttons/selected states */
+    --light-button-primary-hover: #1565c0; /* Darker blue on hover for primary buttons */
+    --light-button-secondary: #bbdefb; /* Lighter blue for secondary/unselected buttons */
+    --light-button-secondary-text: #1a237e; /* Dark text for secondary buttons */
+    --light-button-secondary-hover: #90caf9; /* Medium blue for secondary button hover */
+
+    --light-link: #1976d2; /* Consistent link color */
+    --light-link-hover: #0d47a1; /* Darker blue for link hover */
+
+    /* Shadows (adjusted for blue theme) */
+    --light-shadow-subtle: rgba(25, 118, 210, 0.1); /* Blue-tinted subtle shadow */
+    --light-shadow-medium: rgba(25, 118, 210, 0.2); /* Blue-tinted medium shadow */
+    --light-shadow-strong: rgba(25, 118, 210, 0.3); /* Blue-tinted strong shadow */
+
+    /* Input focus */
+    --light-input-border-focus: #1976d2;
+    --light-input-shadow-focus: rgba(25, 118, 210, 0.25);
+
+    /* Dark Mode - Monochromatic Blue Palette (Conceptual - for future implementation) */
+    --dark-bg: #1a237e; /* Dark blue for overall background */
+    --dark-text: #e3f2fd; /* Very light blue for primary text */
+    --dark-gray-text: #90caf9; /* Light blue for secondary text */
+    --dark-primary-gradient: linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #2196f3 100%); /* Keep same gradient as light mode for consistency or adjust if needed */
+    --dark-card-bg: #283593; /* Medium dark blue for card backgrounds */
+    --dark-card-border: #5c6bc0; /* Muted blue border for dark cards */
+    --dark-card-hover-bg: #3f51b5; /* Slightly lighter dark blue for card hover */
+
+    /* Buttons & Links (Dark Mode) */
+    --dark-button-primary: #2196f3;
+    --dark-button-primary-hover: #1976d2;
+    --dark-button-secondary: #0d47a1;
+    --dark-button-secondary-text: #e3f2fd;
+    --dark-button-secondary-hover: #1565c0;
+
+    --dark-link: #90caf9;
+    --dark-link-hover: #e3f2fd;
+
+    /* Shadows (Dark Mode) */
+    --dark-shadow-subtle: rgba(0, 0, 0, 0.3);
+    --dark-shadow-medium: rgba(0, 0, 0, 0.4);
+    --dark-shadow-strong: rgba(0, 0, 0, 0.5);
+}
+
+/* --- Global Resets & Base Styles --- */
+html, body, #root, .user-panel-layout {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased; /* Better font rendering */
+  -moz-osx-font-smoothing: grayscale; /* Better font rendering */
+}
+
+.user-panel-layout {
+  position: relative;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--light-bg);
+  color: var(--light-text);
+}
+
+.user-panel-layout.dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+/* --- Header Styles --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--light-primary-gradient);
+  box-shadow: 0px 6px 15px var(--light-shadow-medium); /* Enhanced shadow */
+  z-index: 1000;
+  padding-bottom: 0.75rem;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.user-panel-layout.dark .site-header {
+  background: var(--dark-primary-gradient);
+  box-shadow: 0px 6px 15px var(--dark-shadow-medium); /* Enhanced shadow */
+}
+
+/* --- Footer Styles --- */
+.site-footer {
+  background-color: var(--light-card-bg);
+  box-shadow: 0 -4px 12px var(--light-shadow-subtle); /* Enhanced shadow */
+  padding: 1.5rem 0;
+  text-align: center;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-gray-text); /* Footer text is muted */
+  margin-top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+  font-size: 0.9rem;
+}
+
+.user-panel-layout.dark .site-footer {
+  background-color: var(--dark-card-bg);
+  box-shadow: 0 -4px 12px var(--dark-shadow-subtle); /* Enhanced shadow */
+  color: var(--dark-gray-text);
+}
+
+/* --- Main Content Wrapper --- */
+.main-content-wrapper {
+  position: relative;
+  z-index: 1;
+  margin-top: 100px; /* Space for fixed header */
+  padding-bottom: 60px; /* Space for fixed footer */
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(100vh - 160px); /* Adjust height for header + footer */
+}
+
+/* --- Navbar & Buttons --- */
+.navbar {
+  background: transparent;
+  color: var(--light-button-primary-text); /* Will be white from gradient */
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700; /* Bolder logo */
+  font-size: 1.3rem; /* Slightly larger logo */
+  color: #FFFFFF; /* Force white for logo text */
+  font-family: 'Inter', sans-serif;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Subtle text shadow */
+  gap: 8px; /* Space between logo image and text */
+}
+.navbar .logo img {
+    filter: brightness(0) invert(1); /* Ensures logo is white */
+    transition: filter 0.4s ease, transform 0.3s ease;
+    height: 35px; /* Adjust logo image size */
+}
+.navbar .logo:hover img {
+    transform: scale(1.05); /* Slight enlargement on hover */
+}
+/* No separate dark mode filter needed if img is always white */
+
+.navbar .btn {
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white for navbar button */
+  color: #FFFFFF; /* White text on navbar button */
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar .btn:hover {
+    background: rgba(255, 255, 255, 0.35); /* More transparent white on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.navbar .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* No separate dark mode override for navbar button as it's part of the header gradient */
+
+/* --- Main Content Area (Curved Panel) --- */
+..curved-panel-container {
+  background-color: #d0e8ff; /* ✅ Light blue background */
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  margin-top: -60px;
+  position: relative;
+  z-index: 2;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  box-shadow: 0 -8px 25px var(--light-shadow-subtle);
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+/* ✨ Hover effect */
+.curved-panel-container:hover {
+  background-color: #e3f2ff; /* ✅ Slightly lighter blue on hover */
+  transform: translateY(-4px); /* Slight upward lift */
+  box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.08); /* Stronger hover shadow */
+}
+
+.user-panel-layout.dark .curved-panel-container {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+  box-shadow: 0 -8px 25px var(--dark-shadow-subtle); /* Enhanced shadow */
+}
+
+/* --- Styles for the H1 and P titles --- */
+.main-content-title {
+    color: var(--light-text);
+    font-weight: 700;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0.75rem;
+    font-size: 3rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.03em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
+}
+
+.main-content-subtitle {
+    color: var(--light-gray-text);
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.user-panel-layout.dark .main-content-title {
+    color: var(--dark-text);
+}
+.user-panel-layout.dark .main-content-subtitle {
+    color: var(--dark-gray-text);
+}
+
+
+/* --- Section Cards (e.g., Role Entries) --- */
+.user-card-section {
+  border-radius: 1.25rem;
+  box-shadow: 0px 8px 20px var(--light-shadow-subtle);
+  padding: 2rem;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease;
+  background-color: var(--light-card-bg); /* Use white for card background */
+  color: var(--light-text);
+  border: 1px solid var(--light-card-border);
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.user-card-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--light-text);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.user-card-section:hover {
+  transform: translateY(-8px); /* More pronounced lift */
+  box-shadow: 0px 15px 30px var(--light-shadow-medium); /* Stronger shadow on hover */
+  background-color: var(--light-card-hover-bg); /* Light blue on card hover */
+  border-color: var(--light-button-primary); /* Primary blue border on hover */
+}
+
+.user-panel-layout.dark .user-card-section {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-card-border);
+  box-shadow: 0px 8px 20px var(--dark-shadow-subtle);
+}
+
+.user-panel-layout.dark .user-card-section:hover {
+  background-color: var(--dark-card-hover-bg);
+  box-shadow: 0px 15px 30px var(--dark-shadow-medium);
+  border-color: var(--dark-button-primary);
+}
+
+.user-panel-layout.dark .user-card-section h2 {
+  color: var(--dark-text);
+}
+
+/* --- Role Buttons - Targeted for Project Coordinator, Back Office Coordinator, Team Leader --- */
+.role-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.role-button {
+  background: var(--light-button-secondary); /* Lighter blue for unselected */
+  color: var(--light-button-secondary-text); /* Dark text for unselected */
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--light-card-border); /* Soft border for unselected */
+  border-radius: 0.6rem;
+  font-weight: 600; /* Slightly bolder text */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: normal;
+  text-align: center;
+  min-width: 120px;
+  max-width: 160px;
+  min-height: 80px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: 1.4;
+  font-size: 0.95rem; /* Slightly larger font */
+  flex-grow: 1;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 2px 5px var(--light-shadow-subtle);
+}
+
+.role-button:hover {
+    background: var(--light-button-secondary-hover); /* Medium blue on hover */
+    border-color: var(--light-button-primary); /* Primary blue border on hover */
+    transform: translateY(-4px); /* More pronounced lift on hover */
+    box-shadow: 0 8px 15px var(--light-shadow-medium); /* Stronger shadow on hover */
+}
+.role-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px var(--light-shadow-subtle);
+}
+
+.role-button.selected {
+  background: var(--light-button-primary); /* Primary blue when selected */
+  color: #FFFFFF; /* White text for selected */
+  border-color: var(--light-button-primary);
+  box-shadow: 0 5px 12px var(--light-shadow-medium);
+  transform: translateY(-2px);
+}
+
+/* Dark mode specific overrides for role buttons */
+.user-panel-layout.dark .role-button {
+  background: var(--dark-button-secondary);
+  color: var(--dark-button-secondary-text);
+  border: 1px solid var(--dark-card-border);
+  box-shadow: 0 2px 5px var(--dark-shadow-subtle);
+}
+
+.user-panel-layout.dark .role-button:hover {
+    background: var(--dark-button-secondary-hover);
+    border-color: var(--dark-button-primary);
+}
+
+.user-panel-layout.dark .role-button.selected {
+  background: var(--dark-button-primary);
+  color: #FFFFFF;
+  border-color: var(--dark-button-primary);
+  box-shadow: 0 5px 12px var(--dark-shadow-medium);
+}
+
+/* --- Card Grid for Role Entries --- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+}
+
+/* New: Styles for individual role entry items within the grid */
+.cards-grid .role-entry-item {
+  background: var(--light-card-bg); /* Use white for individual role items */
+  color: var(--light-text);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0px 6px 18px var(--light-shadow-subtle);
+  border: 1px solid var(--light-card-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+
+  /* Flexbox for role title and name to be on opposite sides */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cards-grid .role-entry-item:hover {
+  transform: translateY(-7px);
+  /* Added blue shining effect for light mode */
+  box-shadow: 0px 0px 25px 5px rgba(25, 118, 210, 0.4), 0px 14px 30px var(--light-shadow-medium);
+  border-color: var(--light-button-primary); /* Primary blue border on hover */
+  background-color: var(--light-card-hover-bg); /* Light blue background on hover */
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item {
+  background: var(--dark-card-bg);
+  color: var(--dark-text);
+  box-shadow: 0px 6px 18px var(--dark-shadow-subtle);
+  border: 1px solid var(--dark-card-border);
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item:hover {
+  border-color: var(--dark-button-primary);
+  /* Added blue shining effect for dark mode */
+  box-shadow: 0px 0px 25px 5px rgba(33, 150, 243, 0.5), 0px 14px 30px var(--dark-shadow-medium);
+  background-color: var(--dark-card-hover-bg);
+}
+
+/* Style for the Role Title (e.g., "Project Coordinator") */
+.cards-grid .role-entry-item .role-title {
+  color: var(--light-link);
+  font-weight: 700;
+  font-size: 1.25rem;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0;
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item .role-title {
+  color: var(--dark-link);
+}
+
+/* Style for the Name (e.g., "Rahul Sahu") and arrow container */
+.cards-grid .role-entry-item .role-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  margin-top: 0.2rem;
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item .role-name {
+  color: var(--dark-text);
+}
+
+/* Style for the dropdown arrow */
+.cards-grid .role-entry-item .role-name .arrow {
+  font-size: 0.9em;
+  color: var(--light-gray-text);
+  transition: transform 0.2s ease;
+  font-weight: bold;
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item .role-name .arrow {
+  color: var(--dark-gray-text);
+}
+
+/* Styles for the expanded details within the card */
+.cards-grid .role-entry-item p {
+  color: var(--light-text);
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item p {
+  color: var(--dark-text);
+}
+
+.cards-grid .role-entry-item a {
+  color: var(--light-link);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.user-panel-layout.dark .cards-grid .role-entry-item a {
+  color: var(--dark-link);
+}
+
+.cards-grid .role-entry-item a:hover {
+    color: var(--light-link-hover);
+}
+
+.cards-grid .role-entry-item .details {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--light-text);
+  font-family: 'Inter', sans-serif;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.user-panel-layout.dark .cards-grid .role-entry-item .details {
+  color: var(--dark-text);
+}
+
+.cards-grid .role-entry-item .details ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.cards-grid .role-entry-item .details ul li {
+  margin-bottom: 0.4rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+}
+
+
+/* --- Responsive adjustments --- */
+
+/* Tablets and Desktops (min-width: 768px) */
+@media (min-width: 768px) {
+  .site-header {
+      padding-bottom: 1.125rem;
+  }
+
+  .site-header .navbar {
+      padding: 0.75rem 2rem;
+  }
+
+  .site-header .navbar .logo {
+      font-size: 1.4rem; /* Slightly larger for desktop */
+  }
+  .navbar .logo img {
+      height: 40px; /* Larger logo image */
+  }
+
+  .main-content-wrapper {
+      margin-top: 100px;
+  }
+
+  .main-content-title {
+      font-size: 3.2rem;
+      margin-top: 40px;
+  }
+  .main-content-subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 2.5rem;
+  }
+  .curved-panel-container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+  }
+  .user-card-section {
+      padding: 2.5rem;
+  }
+  .role-button-group {
+      gap: 1.5rem;
+  }
+  .role-button {
+      min-width: 140px;
+      min-height: 90px;
+      font-size: 1rem; /* Slightly larger font */
+      padding: 0.7rem 1.4rem;
+  }
+  .cards-grid {
+      gap: 2rem;
+  }
+  .cards-grid .role-entry-item {
+      padding: 1.8rem;
+  }
+}
+
+/* Tablets (min-width: 480px and max-width: 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+    .site-header {
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        padding-bottom: 0.6rem;
+    }
+
+    .site-header .navbar {
+        padding: 0.6rem 1rem;
+    }
+
+    .site-header .navbar .logo {
+        font-size: 1.1rem;
+    }
+    .navbar .logo img {
+        height: 30px;
+    }
+    .navbar .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .main-content-wrapper {
+        margin-top: 90px;
+    }
+
+    .main-content-title {
+        font-size: 2.5rem;
+        margin-top: 30px;
+    }
+    .main-content-subtitle {
+        font-size: 1.15rem;
+        margin-bottom: 2rem;
+    }
+    .curved-panel-container {
+        padding-top: 60px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+    }
+    .user-card-section {
+        padding: 1.5rem;
+    }
+    .role-button-group {
+        gap: 1rem;
+    }
+    .role-button {
+        min-width: 100px;
+        min-height: 70px;
+        font-size: 0.85rem;
+        padding: 0.6rem 1.2rem;
+    }
+    .cards-grid {
+        gap: 1.2rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .cards-grid .role-entry-item {
+        padding: 1.2rem;
+    }
+    .cards-grid .role-entry-item .role-title {
+        font-size: 1.1rem;
+    }
+    .cards-grid .role-entry-item .role-name {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile (max-width: 479px) */
+@media (max-width: 479px) {
+    .site-header {
+        padding-bottom: 0.4rem;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+
+    .site-header .navbar {
+        padding: 0.4rem 0.8rem;
+    }
+
+    .site-header .navbar .logo {
+        font-size: 0.9rem;
+    }
+    .navbar .logo img {
+        height: 25px;
+    }
+
+    .site-header .navbar .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .main-content-wrapper {
+        margin-top: 80px;
+        padding-bottom: 50px;
+        min-height: calc(100vh - 130px);
+    }   
+
+    .main-content-title {
+        font-size: 2rem;
+        margin-top: 20px;
+        margin-bottom: 0.8rem;
+    }
+    .main-content-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .curved-panel-container {
+        padding-top: 50px;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+    .user-card-section {
+        padding: 1.2rem;
+        margin-top: 1.5rem;
+    }
+    .user-card-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .role-button-group {
+        gap: 0.8rem;
+        margin-bottom: 2rem;
+    }
+    .role-button {
+        min-width: 80px;
+        min-height: 60px;
+        font-size: 0.75rem;
+        padding: 0.5rem 0.8rem;
+    }
+    .cards-grid {
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .cards-grid .role-entry-item {
+        padding: 1rem;
+    }
+    .cards-grid .role-entry-item .role-title {
+        font-size: 1.1rem;
+    }
+    .cards-grid .role-entry-item .role-name {
+        font-size: 0.95rem;
+    }
+    .cards-grid .role-entry-item p {
+        font-size: 0.8rem;
+    }
+    .cards-grid .role-entry-item .details {
+        font-size: 0.85rem;
+        margin-top: 0.8rem;
+    }
+    .cards-grid .role-entry-item .details ul li {
+        font-size: 0.75rem;
+    }
+}

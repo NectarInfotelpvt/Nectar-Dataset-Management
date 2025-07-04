@@ -6,7 +6,7 @@ const resourceSchema = new mongoose.Schema({
   district: { type: String, required: true },
   state: { type: String, required: true },
   link: { type: String, required: true },
-  extra: mongoose.Schema.Types.Mixed,
+  extra: mongoose.Schema.Types.Mixed, // For dynamic fields
   createdAt: { type: Date, default: Date.now },
 });
 

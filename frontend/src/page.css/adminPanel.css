@@ -1,175 +1,554 @@
-/* adminPanel.css */
+/* /Users/churamanisahu/Downloads/Nectar DataSet Management software/frontend/src/page.css/adminPanel.css */
 
-html, body, #root, .admin-panel-layout {
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* --- Define Colors for Easy Theming --- */
+/* --- Define Colors for Easy Theming --- */
+:root {
+    /* Light Mode Palette - MODIFIED FOR LIGHT BLUE CARDS */
+    --light-bg: #e8f0f7; /* Soft page background */
+    --light-text: #1a3044; /* Dark blue/gray text */
+    --light-gray-text: #6a7e93; /* Muted gray text */
+    --light-primary-gradient: linear-gradient(135deg, #0056b3 0%, #007bff 50%, #0099ff 100%); /* Header gradient (blue) - ENHANCED */
+
+    --light-card-bg: #e0f2f7; /* Light Blue Card Background - CHANGED */
+    --light-card-border: #b3e0ed; /* Slightly darker light blue for border - CHANGED */
+    --light-card-hover-bg: #cceef7; /* Even lighter blue on card hover - CHANGED */
+
+    --light-accent-orange: #FF7043; /* Bright orange for submit buttons & TABLE HEADER BG */
+    --light-accent-orange-hover: #E65100; /* Darker orange on hover */
+    --light-button-primary: #0b7cd8; /* Primary blue for main buttons */
+    --light-button-primary-hover: #0056b3; /* Darker blue on hover */
+
+    /* Refined Shadows - ENHANCED */
+    --light-shadow-subtle: rgba(0, 0, 0, 0.04) 0px 4px 6px, rgba(0, 0, 0, 0.06) 0px 1px 3px; /* Softer, layered */
+    --light-shadow-medium: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; /* More pronounced */
+    --light-shadow-strong: rgba(0, 0, 0, 0.15) 0px 20px 25px -5px, rgba(0, 0, 0, 0.08) 0px 10px 10px -5px; /* For hover effects */
+
+    --light-input-border-focus: #007bff; /* Blue for input focus */
+    --light-input-shadow-focus: rgba(0, 123, 255, 0.25); /* Light blue shadow for input focus */
+    --light-border-highlight: #aed0ec; /* Used for subtle highlights */
+    --light-form-label-color: #1a3044; /* Form labels back to dark text */
+
+    /* Dark Mode Palette (Conceptual - for future implementation) */
+    --dark-bg: #1f2a38;
+    --dark-text: #e0e6eb;
+    --dark-gray-text: #9ab3cf;
+    --dark-primary-gradient: linear-gradient(to right, #004085, #0056b3, #0069d9);
+    --dark-card-bg: #2c394c;
+    --dark-card-border: #425a7a;
+    --dark-card-hover-bg: #3b4d66;
+    --dark-accent-orange: #E65100;
+    --dark-accent-orange-hover: #bf360c;
+    --dark-button-primary: #0056b3;
+    --dark-button-primary-hover: #004085;
+    --dark-shadow-subtle: rgba(0, 0, 0, 0.2);
+    --dark-shadow-medium: rgba(0, 0, 0, 0.3);
+    --dark-input-border-focus: #8fc7ed;
+    --dark-input-shadow-focus: rgba(143, 199, 237, 0.35);
+    --dark-border-highlight: #5b7da0;
+    --dark-form-label-color: #e0e6eb;
+}
+/* --- Global Styles & Layout --- */
+.admin-panel-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--light-bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--light-text);
+  overflow-x: hidden;
+  padding-top: 100px; /* Space for fixed header */
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased; /* Better font rendering - ADDED */
+  -moz-osx-font-smoothing: grayscale; /* Better font rendering - ADDED */
+  font-weight: 400; /* Ensure base text is not too light - ADDED */
+
+  /* Subtle background pattern */
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239FB3C8' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zm0 20v-4H4v4H0v2h4v4h2v-4h4v-2H6zM36 4v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 4v-4H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* --- Header Styles --- */
+.fixed-header-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: var(--light-primary-gradient);
+  color: #FFFFFF;
+  z-index: 1000;
+  box-shadow: var(--light-shadow-medium); /* UPDATED SHADOW */
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.navbar {
+  width: 100%;
+  padding: 0;
+  height: 100%; /* Ensure navbar takes full height of fixed-header-top-bar */
+}
+
+.navbar .container-fluid {
     height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.admin-panel-layout {
-    position: relative;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* --- FIXED HEADER STYLES --- */
-.fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to right, #7c3aed, #3b82f6, #ec4899);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-    padding-bottom: 20px;
-    border-bottom-left-radius: 10%;
-    border-bottom-right-radius: 10%;
-}
-
-/* Ensure the card inside the FIXED HEADER section doesn't have conflicting top border-radius */
-.fixed-header .card {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-}
-
-/* --- FIXED FOOTER STYLES --- */
-.fixed-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    padding: 15px 0;
-    text-align: center;
-    height: 60px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    /* Remove the white "patti" by matching the background of the main content */
-    background-color: transparent; /* This makes the footer background transparent */
-    box-shadow: none; /* Remove shadow to eliminate the "patti" effect */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: flex-start; /* Align logo to the start */
 }
 
-.fixed-footer p {
-    color: #7c3aed; /* Set a suitable color for the text if the background is transparent */
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  cursor: default; /* Indicate it's not clickable, if it's just a title - ADDED */
+  transition: transform 0.3s ease; /* ADDED */
+  gap: 10px; /* Space between logo image and text - ADDED */
+}
+.logo:hover {
+    transform: translateY(-2px); /* Slight lift on hover - ADDED */
+}
+.logo img {
+    filter: brightness(0) invert(1);
+    transition: filter 0.4s ease, transform 0.3s ease; /* Add transform transition - ADDED */
+}
+.logo:hover img {
+    transform: scale(1.05); /* Slightly enlarge logo on hover - ADDED */
+}
+
+/* Admin Panel Title outside header (re-enabled and styled) */
+.admin-panel-title-outside-header-wrapper {
+    width: 100%;
+    text-align: center;
+    padding: 20px 1rem 10px; /* Space above and below title */
+    color: var(--light-text);
+    font-family: 'Inter', sans-serif;
+    margin-top: 100px; /* Push down content to clear fixed header */
+    text-shadow: 0 1px 2px var(--light-shadow-subtle);
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.admin-panel-title-outside-header {
+  font-size: 2.3rem; /* Slightly larger for impact - ENHANCED */
+  font-weight: 700;
+  margin-bottom: 0;
+  letter-spacing: -0.02em; /* Slightly tighter for boldness - ENHANCED */
+  text-shadow: 0 2px 4px var(--light-shadow-subtle); /* A bit more prominent - ENHANCED */
 }
 
 
-.main-content-wrapper {
-    position: relative;
-    z-index: 1;
-    margin-top: 300px; /* Increased margin-top to account for the heading and better clearance */
-    margin-bottom: 60px; /* Exact height of .fixed-footer */
+/* --- Main Content Area --- */
+.main-content-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
 }
 
-/* --- EXISTING GENERAL STYLES (kept as is) --- */
+.curved-panel {
+  background-color: rgb(152, 185, 246);
+  border-radius: 25px;
+  box-shadow: var(--light-shadow-medium);
+  padding: 40px 3rem;
+  width: 95%;
+  max-width: 1300px;
+  margin-top: 0;
+  border: 1px solid var(--light-card-border);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+}
 
-/* General styles for the form/resource cards */
+/* ✨ Hover effect */
+.curved-panel:hover {
+  transform: scale(1.01); /* Slight zoom-in */
+  box-shadow: var(--light-shadow-strong); /* Stronger shadow */
+  background-color: rgb(180, 205, 250); /* Slightly lighter bg on hover */
+  border-color: var(--light-button-primary); /* Border becomes blue */
+}
+
+/* --- Card Sections (Forms) --- */
 .admin-card-section {
-    border-radius: 8%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: var(--light-card-bg);
+  border: 1px solid var(--light-card-border);
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: var(--light-shadow-subtle); /* UPDATED SHADOW */
+  color: var(--light-text);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
 }
-
-/* Hover effect for the admin cards */
 .admin-card-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background-color: #EAD6FF; /* Using themeColors.lightPurple */
+    transform: translateY(-8px);
+    box-shadow: var(--light-shadow-strong); /* Use the new strong shadow - UPDATED */
+    background-color: var(--light-card-hover-bg);
+    border-color: var(--light-button-primary);
+}
+.admin-card-section h2, .admin-card-section h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--light-text);
+  letter-spacing: -0.01em; /* Subtle tightening for headers - ADDED */
+}
+/* Icon styling for titles (conceptual - requires an icon library like Font Awesome) */
+.admin-card-section h2 i {
+    margin-right: 10px; /* Space between icon and text */
+    color: var(--light-button-primary); /* Primary blue for form section titles */
+    font-size: 1.2em; /* Slightly larger than text */
+    vertical-align: middle;
 }
 
-/* Style for the headings inside these cards */
-.admin-card-section h2 {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
+
+/* --- Table Section Styling --- */
+.admin-data-table-section {
+    background-color: var(--light-card-bg);
+    border: 1px solid var(--light-card-border);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: var(--light-shadow-subtle); /* UPDATED SHADOW */
+    color: var(--light-text);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
+}
+.admin-data-table-section:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--light-shadow-strong); /* Use the new strong shadow - UPDATED */
+    background-color: var(--light-card-hover-bg);
+    border-color: var(--light-button-primary);
 }
 
-/* General body styles - kept minimal as layout is handled by flexbox */
-body {
-    font-family: Arial, sans-serif;
+/* "All Data Catalog" header is orange and attractive */
+.admin-data-table-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--light-accent-orange);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    letter-spacing: -0.01em; /* Subtle tightening for headers - ADDED */
+}
+/* Icon styling for titles (conceptual - requires an icon library like Font Awesome) */
+.admin-data-table-section h2 i {
+    margin-right: 10px; /* Space between icon and text */
+    color: var(--light-accent-orange); /* Orange for table title icons */
+    font-size: 1.2em; /* Slightly larger than text */
+    vertical-align: middle;
 }
 
-/* Form control styles */
+
+/* --- Table Header Styling (Orange Background) --- */
+.table-header-orange {
+    background-color: var(--light-accent-orange);
+    color: #FFFFFF !important;
+    font-weight: 600;
+    vertical-align: middle;
+    border: 1px solid var(--light-accent-orange-hover);
+    padding: 0.8rem 0.75rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.admin-data-table thead tr th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.admin-data-table thead tr th:last-child {
+    border-top-right-radius: 12px;
+}
+.admin-data-table thead tr th {
+    border-bottom: 2px solid var(--light-accent-orange-hover); /* Stronger bottom border for header - ADDED */
+}
+
+
+/* --- Form Elements --- */
+.form-label {
+  font-weight: 600;
+  color: var(--light-form-label-color);
+  margin-bottom: .6rem;
+  display: block;
+  font-size: 0.95rem; /* Slightly smaller than input text for hierarchy - ADDED */
+}
+
 .form-control, .form-select {
-    border-radius: 0.5rem;
-    border: 1px solid #ced4da;
-    padding: 0.75rem 1rem;
+  border: 1px solid var(--light-card-border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  color: var(--light-text);
+  background-color: var(--light-card-bg);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.form-control::placeholder, .form-select::placeholder {
+    color: var(--light-gray-text);
+}
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--light-input-border-focus);
+    box-shadow: 0 0 0 4px var(--light-input-shadow-focus), inset 0 1px 3px rgba(0,0,0,0.08); /* Added subtle inset shadow - ENHANCED */
+    background-color: var(--light-card-hover-bg);
 }
 
-/* Button styles */
-.btn {
-    border-radius: 0.75rem;
-    padding: 0.75rem 1.5rem;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+/* Submit and Secondary Buttons */
+.submit-btn, .btn-secondary {
+  background: var(--light-accent-orange);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 112, 67, 0.3);
+  letter-spacing: 0.02em;
+  display: inline-flex; /* Use flex to align icon and text - ADDED */
+  align-items: center; /* ADDED */
+  justify-content: center; /* ADDED */
+}
+.submit-btn:hover, .btn-secondary:hover {
+    background: var(--light-accent-orange-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 112, 67, 0.4), 0 4px 8px rgba(255, 112, 67, 0.2); /* More dynamic shadow - ENHANCED */
+}
+.submit-btn:active, .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(255, 112, 67, 0.2);
+}
+/* Icon styling for buttons (conceptual - requires an icon library like Font Awesome) */
+.submit-btn i, .btn-secondary i {
+    margin-right: 8px; /* Space between icon and button text */
+    font-size: 1.1em;
 }
 
-/* Table header styles */
-.table-custom-header th {
-   background: linear-gradient(to right, #7c3aed, #3b82f6, #ec4899);
-    color: white;
-    font-weight: bold;
+
+/* Small Danger Button for Removing Extra Fields */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
+    display: inline-flex; /* Use flex to align icon and text - ADDED */
+    align-items: center; /* ADDED */
+    justify-content: center; /* ADDED */
+}
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.35); /* Slightly stronger shadow - ENHANCED */
+}
+/* Icon styling for buttons (conceptual - requires an icon library like Font Awesome) */
+.btn-danger i {
+    margin-right: 5px; /* Space for icon */
+    font-size: 0.8em; /* Slightly smaller icon */
 }
 
-/* Striped table rows */
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.03); /* Very light gray for odd rows */
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 25px;
+  margin-top: auto;
+  color: var(--light-gray-text);
+  font-size: 0.9rem;
+  background-color: var(--light-card-bg);
+  border-top: 1px solid var(--light-card-border);
+  box-shadow: 0 -2px 10px var(--light-shadow-subtle);
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* PERMANENT SOLUTION FOR TABLE ROW HOVER COLOR */
-.table-hover tbody tr:hover {
-    background-color: #e0e0e0 !important; /* A slightly darker light gray */
+/* --- Extra Field Bordering --- */
+.mb-3.border.p-2.rounded {
+    border: 1px dashed var(--light-border-highlight) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    background-color: rgba(0, 123, 255, 0.05);
+    margin-bottom: 1.5rem !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Style for the main content area (forms, tables) to create the curved top */
-.curved-panel-container {
-    background-color: white; /* The white background for this entire section */
-    border-top-left-radius: 60px; /* Adjust this value for the desired curve */
-    border-top-right-radius: 60px; /* Keep consistent with top-left */
-    margin-top: -60px; /* Pulls this white section upwards to overlap the gradient above it */
-    position: relative; /* Ensures z-index works, and local positioning */
-    z-index: 2; /* Make sure this white section is above the parts of the fixed header it overlaps */
-    padding-top: 80px; /* Add extra padding inside to prevent content from hiding under the curve */
-    padding-bottom: 40px; /* Add some padding at the bottom for content above footer */
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); /* Optional: subtle shadow for depth */
+/* --- Table specific styling --- */
+.admin-table-container {
+    padding: 1px;
 }
 
-/* Added: Border radius for the table cards and headers */
-.table-card {
-    border-radius: 1rem; /* Apply consistent rounding to the table cards */
-    overflow: hidden; /* Important: Hides the table content that would otherwise extend beyond the rounded corners */
+.admin-data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 0;
 }
 
-/* Also ensure table cells align with the rounded corners */
-.table-card .card-header {
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+.admin-data-table th,
+.admin-data-table td {
+    padding: 0.75rem;
+    border: 1px solid var(--light-card-border);
+    vertical-align: middle;
+    color: var(--light-text);
+    background-color: var(--light-card-bg);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    border-right: 1px solid var(--light-card-border); /* ADDED */
+    border-bottom: 1px solid var(--light-card-border); /* ADDED */
+}
+.admin-data-table th:last-child, .admin-data-table td:last-child {
+    border-right: none; /* No border on the very last column - ADDED */
 }
 
-.table-card table {
-    border-collapse: separate; /* Required for border-radius on table elements */
-    border-spacing: 0; /* Ensures no gaps between cells */
+.admin-data-table tbody tr {
+    transition: background-color 0.2s ease, transform 0.1s ease; /* Add subtle transform - ENHANCED */
+}
+.admin-data-table tbody tr:hover {
+    background-color: var(--light-card-hover-bg);
+    transform: translateX(3px); /* Subtle slide to the right - ENHANCED */
 }
 
-.table-card table thead th:first-child {
-    border-top-left-radius: 1rem;
+.admin-data-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
 }
 
-.table-card table thead th:last-child {
-    border-top-right-radius: 1rem;
+.admin-data-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+.admin-data-table tbody tr:last-child td {
+    border-bottom: none; /* No border on the very last row - ADDED */
 }
 
-/* For the last row of the table, if you want bottom rounding */
-.table-card table tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 1rem;
+
+/* Adjustments for search input within table section */
+.search-bar-wrapper {
+    margin-bottom: 1.5rem;
 }
 
-.table-card table tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 1rem;
+.search-input {
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: 1px solid var(--light-card-border);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* ADDED for consistency */
+}
+.search-input:focus {
+    border-color: var(--light-input-border-focus);
+    box-shadow: 0 0 0 4px var(--light-input-shadow-focus), inset 0 1px 3px rgba(0,0,0,0.08); /* ENHANCED */
+    background-color: var(--light-card-hover-bg); /* ADDED for consistency */
+}
+
+
+/* --- Responsive Adjustments --- */
+
+/* Tablets and Desktops (min-width: 992px) */
+@media (min-width: 992px) {
+    .curved-panel {
+        padding: 40px 3rem; /* Adjusted for consistency - ENHANCED */
+    }
+    .admin-panel-title-outside-header {
+        font-size: 2.3rem; /* Revert to enhanced size - ENHANCED */
+    }
+}
+
+/* Tablets (min-width: 768px and max-width: 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .fixed-header-top-bar {
+        height: 100px; /* Revert to original height */
+    }
+    .admin-panel-container {
+        padding-top: 100px; /* Revert content push-down */
+    }
+    .admin-panel-title-outside-header-wrapper {
+        margin-top: 100px; /* Adjust for fixed header */
+        padding: 20px 1rem 10px;
+    }
+    .admin-panel-title-outside-header {
+        font-size: 2rem; /* Adjusted for tablet */
+    }
+    .curved-panel {
+        padding: 30px 1.5rem;
+        width: 98%;
+    }
+}
+
+/* Mobile (max-width: 767px) - Combined for smaller screens */
+@media (max-width: 767px) {
+    .fixed-header-top-bar {
+        height: 80px; /* Keep consistent with prior smaller header */
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        padding: 0 1rem;
+    }
+    .logo {
+        font-size: 22px;
+    }
+    .logo img {
+        width: 30px;
+        height: 25px;
+        margin-right: 8px;
+    }
+    .admin-panel-container {
+        padding-top: 80px; /* Adjust content push-down for smaller header */
+    }
+    .admin-panel-title-outside-header-wrapper {
+        margin-top: 80px; /* Adjust for fixed header */
+        padding: 15px 1rem 5px;
+    }
+    .admin-panel-title-outside-header {
+        font-size: 1.8rem; /* Adjusted for mobile */
+    }
+    .main-content-area {
+        padding: 15px 0;
+    }
+    .curved-panel {
+        padding: 25px 1.2rem; /* Adjusted - ENHANCED */
+        width: 98%;
+    }
+    .admin-card-section, .admin-data-table-section {
+        padding: 25px;
+    }
+    .admin-card-section h2, .admin-data-table-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+    }
+    .form-label {
+        font-size: 0.95rem;
+    }
+    .form-control, .form-select {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
+    .submit-btn, .btn-secondary {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    .btn-danger {
+        padding: 7px 12px;
+        font-size: 0.85rem;
+    }
+    .mb-3.border.p-2.rounded {
+        padding: 0.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .table-header-orange {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.9em;
+    }
+    .admin-data-table th,
+    .admin-data-table td {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
 }

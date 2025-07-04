@@ -1,3 +1,4 @@
+// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -6,31 +7,30 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ Apply CORS FIRST — before routes
+// Apply CORS FIRST — before routes
 app.use(cors({
-  // Add the new origin to the allowed list
   origin: ["http://localhost:5173", "https://nectar-dataset-management-live.onrender.com"],
   credentials: true,
 }));
 
-// ✅ Middleware
+// Middleware
 app.use(express.json({ limit: "10mb" }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// ✅ Routes
+// Routes
 const resourceRoutes = require("./routes/resource");
 const submissionRouter = require('./routes/submissionRoutes');
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/authRoutes"); // Assuming you have auth routes
 
 app.use("/api/resources", resourceRoutes);
 app.use("/api/submission", submissionRouter);
-app.use("/api", authRoutes);
+app.use("/api", authRoutes); // Assuming this handles /api/login, /api/register etc.
 
 app.get("/", (req, res) => {
   res.send("✅ Nectar API is running...");
 });
 
-// ✅ MongoDB connection and server start
+// MongoDB connection and server start
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected successfully!");
